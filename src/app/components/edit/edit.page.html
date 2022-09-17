@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="name" (click)="delete()">
+        <ion-icon name="trash-bin"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <quill-editor [(ngModel)]="content" [modules]="modules">
+  </quill-editor>
+</ion-content>
