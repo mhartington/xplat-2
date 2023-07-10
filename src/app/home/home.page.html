@@ -18,7 +18,7 @@
     </ion-toolbar>
   </ion-header>
 
-    <ion-item *ngFor="let note of notes" (click)="edit(note.name)">
+    <ion-item *ngFor="let note of notes()" (click)="edit(note.name)">
       {{note.name}}
     </ion-item>
 </ion-content>

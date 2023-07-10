@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Directory, FileInfo, Filesystem } from '@capacitor/filesystem';
 import { IonicModule, IonRouterOutlet, ModalController } from '@ionic/angular';
 import { EditPage } from '../components/edit/edit.page';
@@ -14,7 +14,7 @@ const noop = () => {};
   imports: [IonicModule, CommonModule],
 })
 export class HomePage {
-  public notes: FileInfo[] = [];
+  public notes = signal<FileInfo[]>([]);
   constructor(
     private modalCtrl: ModalController,
     private routerOutlet: IonRouterOutlet
@@ -55,11 +55,10 @@ export class HomePage {
       directory: Directory.Documents,
       path: 'notes',
     });
-    console.log(files);
-    this.notes = files.sort(
+    this.notes.set(files.sort(
       (a: FileInfo, b: FileInfo) =>
         parseInt(b.name.replace(/note-/, '').replace(/.txt/, '')) -
         parseInt(a.name.replace(/note-/, '').replace(/.txt/, ''))
-    );
+    ));
   }
 }

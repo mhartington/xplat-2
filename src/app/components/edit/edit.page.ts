@@ -16,14 +16,6 @@ export class EditPage implements OnInit {
   @Input() name: string | undefined;
   content: string = '';
 
-  modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ indent: '-1' }, { indent: '+1' }],
-    ],
-  };
   constructor(
     private alertCtrl: AlertController,
     private modalCtrl: ModalController
