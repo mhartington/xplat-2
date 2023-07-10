@@ -61,4 +61,12 @@ export class HomePage {
         parseInt(a.name.replace(/note-/, '').replace(/.txt/, ''))
     ));
   }
+
+  async delete(note: FileInfo){
+    await Filesystem.deleteFile({
+      path:`notes/${note.name}`,
+      directory: Directory.Documents
+    })
+    await this.readDir();
+  }
 }
