@@ -18,7 +18,7 @@
     </ion-toolbar>
   </ion-header>
     <ion-item-sliding *ngFor="let note of notes()" >
-    <ion-item (click)="edit(note.name)">
+    <ion-item (click)="edit(note.name)" detail="true">
       {{note.name}}
     </ion-item>
      <ion-item-options side="end">
