@@ -234,9 +234,10 @@
   }
 }
 quill-editor {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   color: var(--ion-text-color);
 }
 .ql-toolbar.ql-snow,

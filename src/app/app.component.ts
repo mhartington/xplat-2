@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
   prefersDark = matchMedia('(prefers-color-scheme: dark)');
@@ -14,7 +15,7 @@ export class AppComponent {
   ngOnInit() {
     this.updateStatusbar(this.prefersDark.matches);
     this.prefersDark.addEventListener('change', (e: MediaQueryListEvent) =>
-      this.updateStatusbar(e.matches)
+      this.updateStatusbar(e.matches),
     );
   }
   updateStatusbar(matches: boolean): any {

@@ -1,8 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Directory, FileInfo, Filesystem } from '@capacitor/filesystem';
-import { IonicModule, IonRouterOutlet, ModalController } from '@ionic/angular';
+import { IonRouterOutlet, ModalController } from '@ionic/angular/standalone';
 import { EditPage } from '../components/edit/edit.page';
+import { addIcons } from 'ionicons';
+import { add, trash } from 'ionicons/icons';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonContent,
+  IonItemSliding,
+  IonItem,
+  IonItemOptions,
+  IonItemOption,
+} from '@ionic/angular/standalone';
 
 const noop = () => {};
 
@@ -11,14 +26,29 @@ const noop = () => {};
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonContent,
+    IonItemSliding,
+    IonItem,
+    IonItemOptions,
+    IonItemOption,
+  ],
 })
 export class HomePage {
   public notes = signal<FileInfo[]>([]);
   constructor(
     private modalCtrl: ModalController,
-    private routerOutlet: IonRouterOutlet
-  ) {}
+    private routerOutlet: IonRouterOutlet,
+  ) {
+    addIcons({ add, trash });
+  }
   async ngOnInit(): Promise<void> {
     await Filesystem.requestPermissions();
     await this.initFileSystem();
@@ -55,18 +85,20 @@ export class HomePage {
       directory: Directory.Documents,
       path: 'notes',
     });
-    this.notes.set(files.sort(
-      (a: FileInfo, b: FileInfo) =>
-        parseInt(b.name.replace(/note-/, '').replace(/.txt/, '')) -
-        parseInt(a.name.replace(/note-/, '').replace(/.txt/, ''))
-    ));
+    this.notes.set(
+      files.sort(
+        (a: FileInfo, b: FileInfo) =>
+          parseInt(b.name.replace(/note-/, '').replace(/.txt/, '')) -
+          parseInt(a.name.replace(/note-/, '').replace(/.txt/, '')),
+      ),
+    );
   }
 
-  async delete(note: FileInfo){
+  async delete(note: FileInfo) {
     await Filesystem.deleteFile({
-      path:`notes/${note.name}`,
-      directory: Directory.Documents
-    })
+      path: `notes/${note.name}`,
+      directory: Directory.Documents,
+    });
     await this.readDir();
   }
 }
