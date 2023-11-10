@@ -6,14 +6,15 @@
       <ion-button (click)="save()">
         <ion-icon name="save"></ion-icon>
       </ion-button>
-      <ion-button *ngIf="name" (click)="delete()">
-        <ion-icon name="trash-bin"></ion-icon>
-      </ion-button>
+      @if(name){
+        <ion-button (click)="delete()">
+          <ion-icon name="trash-bin"></ion-icon>
+        </ion-button>
+      }
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <quill-editor [(ngModel)]="content">
-  </quill-editor>
+  <quill-editor [(ngModel)]="content"> </quill-editor>
 </ion-content>

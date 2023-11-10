@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Notes
-    </ion-title>
+    <ion-title> Note </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="edit()" color="primary">
         <ion-icon slot="icon-only" name="add"></ion-icon>
@@ -14,18 +12,20 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Notes</ion-title>
+      <ion-title size="large">Note</ion-title>
     </ion-toolbar>
   </ion-header>
-    <ion-item-sliding *ngFor="let note of notes()" >
-    <ion-item (click)="edit(note.name)" detail="true">
-      {{note.name}}
-    </ion-item>
-     <ion-item-options side="end">
-      <ion-item-option color="danger" (click)="delete(note)">
-        <ion-icon name="trash" slot="start" />
-        Delete</ion-item-option>
-    </ion-item-options>
-
+  @for(note of notes(); track note.name){
+    <ion-item-sliding>
+      <ion-item (click)="edit(note.name)" detail="true">
+        <ion-label>{{note.name}}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="delete(note)">
+          <ion-icon name="trash" slot="start" />
+          Delete</ion-item-option
+        >
+      </ion-item-options>
     </ion-item-sliding>
+  }
 </ion-content>

@@ -1,7 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Directory, FileInfo, Filesystem } from '@capacitor/filesystem';
-import { IonRouterOutlet, ModalController } from '@ionic/angular/standalone';
 import { EditPage } from '../components/edit/edit.page';
 import { addIcons } from 'ionicons';
 import { add, trash } from 'ionicons/icons';
@@ -17,6 +15,9 @@ import {
   IonItem,
   IonItemOptions,
   IonItemOption,
+  IonLabel,
+  IonRouterOutlet,
+  ModalController,
 } from '@ionic/angular/standalone';
 
 const noop = () => {};
@@ -27,7 +28,7 @@ const noop = () => {};
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
+    IonLabel,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -43,10 +44,11 @@ const noop = () => {};
 })
 export class HomePage {
   public notes = signal<FileInfo[]>([]);
-  constructor(
-    private modalCtrl: ModalController,
-    private routerOutlet: IonRouterOutlet,
-  ) {
+
+  private modalCtrl = inject(ModalController);
+  private routerOutlet = inject(IonRouterOutlet);
+
+  constructor() {
     addIcons({ add, trash });
   }
   async ngOnInit(): Promise<void> {
